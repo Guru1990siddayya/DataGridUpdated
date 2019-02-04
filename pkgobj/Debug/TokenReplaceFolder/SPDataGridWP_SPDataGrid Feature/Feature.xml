@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Id="ad11ef00-7e72-449c-b4b7-cd16b6145b00" Scope="Site" Title="SPDataGrid Feature">
+  <ElementManifests>
+    <ElementManifest Location="SPDataGridWP\Elements.xml" />
+    <ElementFile Location="SPDataGridWP\SPDataGridWP.webpart" />
+    <ElementManifest Location="WebPartPages\Elements.xml" />
+    <ElementFile Location="WebPartPages\DataGridPage.aspx" />
+  </ElementManifests>
+</Feature>
