@@ -11,7 +11,7 @@ namespace SPDataGridWP.VisualWebPart
     public partial class SPDataGridWPUserControl : UserControl
     {
         private SqlConnection con;
-        private const string databaseServerName = "SP2013";
+        private const string databaseServerName = "gww09072appg078";
         private const string databaseName = "HermesCMS";
         private const string tableName = "Risk";
         protected void Page_Load(object sender, EventArgs e)
@@ -22,7 +22,11 @@ namespace SPDataGridWP.VisualWebPart
                 connectionString.Append(databaseServerName);
                 connectionString.Append(";Initial Catalog=");
                 connectionString.Append(databaseName);
-                connectionString.Append(";Integrated Security=True;");
+                //connectionString.Append(";Integrated Security=SSPI;");
+                connectionString.Append("User Id=CLMUser;");
+                connectionString.Append("Password=CLM@123;");
+                connectionString.Append("Connect Timeout=0");
+
                 con = new SqlConnection(connectionString.ToString());
                 if (!IsPostBack)
                 {
@@ -56,7 +60,8 @@ namespace SPDataGridWP.VisualWebPart
                 Label riskId = (Label)ro.FindControl("lblRiskId");
                 TextBox riskTitle = (TextBox)ro.FindControl("txtRiskTitle");
                 TextBox riskDescription = (TextBox)ro.FindControl("txtRiskDescription");
-                UpdateGrid(Convert.ToInt32(riskId.Text), riskTitle.Text, riskDescription.Text);
+                TextBox riskEBITDA = (TextBox)ro.FindControl("txtEBITDA");
+                UpdateGrid(Convert.ToInt32(riskId.Text), riskTitle.Text, riskDescription.Text, Convert.ToInt32(riskEBITDA.Text));
             }
             catch (Exception ex)
             {
@@ -117,7 +122,7 @@ namespace SPDataGridWP.VisualWebPart
             {
                 gridView.PagerTemplate = null;
                 con.Open();
-                SqlCommand cmd = new SqlCommand(string.Format("select {0}.RiskID, {1}.RiskTitle, {2}.RiskDescription from {3}", tableName, tableName, tableName, tableName), con);
+                SqlCommand cmd = new SqlCommand(string.Format("select {0}.RiskID, {1}.RiskTitle, {2}.RiskDescription, {3}.LifetimeEBITDAValue from {4}", tableName, tableName, tableName, tableName, tableName), con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -131,18 +136,18 @@ namespace SPDataGridWP.VisualWebPart
             }
         }
 
-        private void UpdateGrid(int RiskID, string RiskTitle, string RiskDescription)
+        private void UpdateGrid(int RiskID, string RiskTitle, string RiskDescription, int RiskEBITDA)
         {
             try
             {
-                string query = "UPDATE " + tableName + " SET RiskTitle = @RiskTitle, RiskDescription = @RiskDescription  WHERE RiskID = @RiskID";
+                string query = "UPDATE " + tableName + " SET RiskTitle = @RiskTitle, RiskDescription = @RiskDescription, LifetimeEBITDAValue = @LifetimeEBITDAValue  WHERE RiskID = @RiskID";
 
                 SqlCommand com = new SqlCommand(query, con);
 
                 com.Parameters.Add("@RiskID", SqlDbType.Int).Value = RiskID;
                 com.Parameters.Add("@RiskTitle", SqlDbType.VarChar).Value = RiskTitle;
                 com.Parameters.Add("@RiskDescription", SqlDbType.VarChar).Value = RiskDescription;
-
+                com.Parameters.Add("@LifetimeEBITDAValue", SqlDbType.Int).Value = RiskEBITDA;
                 con.Open();
                 com.ExecuteNonQuery();
                 con.Close();

@@ -34,6 +34,14 @@
                 <asp:TextBox ID="txtRiskDescription" runat="server" Text='<%#Bind("RiskDescription") %>'></asp:TextBox>
             </EditItemTemplate>
         </asp:TemplateField>
+        <asp:TemplateField HeaderText="Lifetime EBITDA Value">
+            <ItemTemplate>
+                <asp:Label ID="lblEBITDA" runat="server" Text='<%#Eval("LifetimeEBITDAValue") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="txtEBITDA" runat="server" Text='<%#Bind("LifetimeEBITDAValue") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
 
         <asp:CommandField ShowEditButton="True" HeaderText="" />
         <asp:TemplateField HeaderText="">

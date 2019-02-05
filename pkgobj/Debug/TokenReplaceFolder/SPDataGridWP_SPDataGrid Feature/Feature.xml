@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Id="ad11ef00-7e72-449c-b4b7-cd16b6145b00" Scope="Site" Title="SPDataGrid Feature">
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Title="SPDataGrid Feature" Id="ad11ef00-7e72-449c-b4b7-cd16b6145b00" ReceiverAssembly="SPDataGridWP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7425406532a5f075" ReceiverClass="SPDataGridWP.Features.SPDataGrid_Feature.SPDataGrid_FeatureEventReceiver" Scope="Site">
   <ElementManifests>
     <ElementManifest Location="SPDataGridWP\Elements.xml" />
     <ElementFile Location="SPDataGridWP\SPDataGridWP.webpart" />
